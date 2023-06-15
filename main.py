@@ -16,9 +16,9 @@ if uploaded_file is not None:
     st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
 
     # imgname = "/content/img2_m3.jpeg"
-    gray = cv2.imread(root_path,0)
+    img = cv2.imread(root_path,0)
 #     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    retval, threshed = cv2.threshold(gray, 180, 255, cv2.THRESH_BINARY )
+    retval, threshed = cv2.threshold(img, 180, 255, cv2.THRESH_BINARY )
     h,w = img.shape[:2]
     x = np.sum(threshed, axis=0)
     y = np.sum(threshed, axis=1)
