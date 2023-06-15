@@ -11,10 +11,11 @@ uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
 
 if uploaded_file is not None:
+    root_path = os.getcwd()+"/"+uploaded_file.name
     st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
 
     # imgname = "/content/img2_m3.jpeg"
-    img = cv2.imread(uploaded_file.name)
+    img = cv2.imread(root_path)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     retval, threshed = cv2.threshold(gray, 180, 255, cv2.THRESH_BINARY )
     h,w = img.shape[:2]
