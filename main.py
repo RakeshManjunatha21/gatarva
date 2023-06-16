@@ -10,15 +10,20 @@ st.title("Image Uploader")
 
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
-
 if uploaded_file is not None:
-    root_path = os.getcwd()+"/"+uploaded_file.name
+    root_path = os.getcwd()
+    file_path = os.path.join(root_path, uploaded_file.name)
+    with open(file_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+
+    img_path = os.getcwd()+"/"+uploaded_file.name
+    print(img_path)
     st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
 
     # imgname = "/content/img2_m3.jpeg"
-    img = cv2.imread(root_path,0)
-#     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    retval, threshed = cv2.threshold(img, 180, 255, cv2.THRESH_BINARY )
+    img = cv2.imread(img_path)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    retval, threshed = cv2.threshold(gray, 180, 255, cv2.THRESH_BINARY )
     h,w = img.shape[:2]
     x = np.sum(threshed, axis=0)
     y = np.sum(threshed, axis=1)
